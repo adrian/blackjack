@@ -1,0 +1,51 @@
+<project name="Blackjack" default="compile">
+
+    <property name="src.dir"             value="${basedir}/src"/>
+    <property name="test.src.dir"        value="${basedir}/test"/>
+    <property name="build.dir"           value="${basedir}/bin"/>
+    <property name="test.build.dir"      value="${basedir}/test-bin"/>
+    <property name="junit.jar"           value="C:\apps\junit4.8.2\junit-4.8.2.jar"/>
+
+    <available property="junit-present" file="${junit.jar}"/>
+
+    <target name="clean">
+        <delete dir="${build.dir}"/>
+        <delete dir="${test.build.dir}"/>
+    </target>
+
+    <target name="compile" depends="check-for-junit" if="junit-present">
+        <mkdir dir="${build.dir}"/>
+        <javac srcdir="${src.dir}" destdir="${build.dir}"/>
+
+        <mkdir dir="${test.build.dir}"/>
+        <javac srcdir="${test.src.dir}" destdir="${test.build.dir}">
+            <classpath>
+                <pathelement location="${build.dir}"/>
+                <pathelement location="${junit.jar}"/>
+            </classpath>
+        </javac>
+    </target>
+
+    <target name="test" depends="compile">
+        <junit printsummary="true">
+            <classpath>
+                <pathelement location="${build.dir}"/>
+                <pathelement location="${test.build.dir}"/>
+                <pathelement location="${junit.jar}"/>
+            </classpath>
+
+            <formatter type="plain"/>
+
+            <batchtest>
+                <fileset dir="${test.build.dir}">
+                    <include name="**/*Test.class"/>
+                </fileset>
+            </batchtest>
+        </junit>
+    </target>
+
+    <target name="check-for-junit" unless="junit-present">
+       <fail message="Set the property junit.jar to point to your local junit jar file"/>
+    </target>
+
+</project>

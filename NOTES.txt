@@ -1,0 +1,3 @@
+UML
+http://yuml.me/diagram/scruffy;/class/edit/[Game]1-*>[Player], [Game]1-1>[GameRules], [Player]1++-1[Hand], [Hand]1->*[Card|suit;rank], [Player]<1-1>[Strategy], [Player]^[Dealer], [CardObserver]^[HiLoStrategy], [CardObserver]observing-.->[Game], [Strategy]^[BasicStrategy], [BasicStrategy]^[HiLoStrategy], [Strategy]creates-.->[Decision], [Decision]^[DoubleDown], [Decision]^[Hit], [Decision]^[Split], [Decision]^[Stand], [Decision]^[Surrender], [StrategyBuilder]^[BasicStrategyBuilder], [StrategyBuilder]^[HiLoStrategyBuilder], [BasicStrategyBuilder]creates-.->[BasicStrategy], [HiLoStrategyBuilder]creates-.->[HiLoStrategy]
+
